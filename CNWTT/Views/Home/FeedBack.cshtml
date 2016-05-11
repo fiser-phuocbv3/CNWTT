@@ -1,0 +1,40 @@
+﻿@using CNWTT.App_Start;
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "FeedBack";
+    account accUser = null;
+
+    accUser = (account)Session[CONFIG.SESSION_USER];
+}
+
+@section menu{
+
+}
+
+<div class="section group">
+    <div class="col span_2_of_3">
+        <div class="contact-form">
+
+            <h2>Mời bạn cho phản hồi của bạn về dịch vụ</h2>
+            <!--<h3 style="color:red">sfd</h3>-->
+            <form method="post" action="@Url.Action("FeedBack","Home", new { idUser = accUser.id })" id="formFeedBack" name="formFeedBack">                               
+                <div>                             
+                    <span><textarea id="content" name="content" placeholder="Nội dung ý kiến" required></textarea></span>
+                </div>
+                <div>
+                    <span><input type="submit" value="Đánh giá"></span>
+                </div>                                      
+            </form>
+        </div>
+    </div>
+    <div class="col span_1_of_3">
+        <div class="contact-form">
+            <h2>Bản đồ</h2>
+            <div id="sample" style="height: 200px">
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,89 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "Admin";
+    account account = null;
+    accountInfor accInfor = null;
+}
+
+@{ 
+    account = ViewBag.account;
+    accInfor = ViewBag.accInfor;
+}
+<div class="widgets_area">
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">Thông tin người quản trị</h2>
+    </div>
+
+    <div class="widgets_area">
+
+    </div>
+
+    
+    <div class="widgets_area">
+        <div class="form_row control-group">
+            <div class="span3"><h4>Tên tài khoản</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@account.username</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_row control-group">
+            <div class="span3"><h4>Tên người dùng</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@accInfor.name</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_row control-group">
+            <div class="span3"><h4>Địa chỉ</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@accInfor.address</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_row control-group">
+            <div class="span3"><h4>Số chứng minh nhân dân</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@accInfor.identify</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_row control-group">
+            <div class="span3"><h4>Số điện thoại</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@accInfor.phone</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="form_row control-group">
+            <div class="span3"><h4>Email</h4></div>
+            <div class="field">
+                <div class="span4">
+                    <h4>@accInfor.email</h4>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widgets_area">
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid align_center">           
+            <a href="@Url.Action("ViewAccount", "Admin")" class="blue btn btn-xlarge">Chỉnh sửa thông tin</a>
+        </div>
+    </div>
+
+</div>
+   

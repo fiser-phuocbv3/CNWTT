@@ -1,0 +1,72 @@
+﻿
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "Register";
+}
+@{ 
+    string msg = "";
+
+    msg = ViewBag.msg;
+}
+@section menu{
+    
+}
+
+<div class="section group">
+    <div class="col span_2_of_3">
+        <div class="contact-form">
+
+            <h2>Đăng kí tài khoản</h2>
+            <h3 style="color:red">@msg</h3>
+
+            <form method="post" action="@Url.Action("Register","Home")" id="formRegister" name="formRegister">
+                <div>
+                    <span><label>Họ và tên</label></span>
+                    <span><input id="name" name="name" type="text" required></span>
+                </div>
+                <div>
+                    <span><label>Tên đăng nhập</label></span>
+                    <span><input id="userName" name="userName" type="text" required></span>
+                </div>
+                <div>
+                    <span><label>Mật khẩu</label></span>
+                    <span><input id="password" name="password" type="password" required></span>
+                </div> 
+                <div>
+                    <span><label>Nhập lại mật khẩu</label></span>
+                    <span><input id="confirmPassword" name="confirmPassword" type="password" required></span>
+
+                </div>
+                <div>
+                    <span><label>Số chứng minh thư</label></span>
+                    <span><input id="identify" name="identify" type="text" required></span>
+                </div>
+                <div>
+                    <span><label>Số điện thoại</label></span>
+                    <span><input id="phone" name="phone" type="text" required></span>
+                </div>
+                <div>
+                    <span><label>Địa chỉ</label></span>
+                    <span><input id="address" name="address" type="text" required></span>
+                </div>
+                <div>
+                    <span><label>Email</label></span>
+                    <span><input id="email" name="email" type="text" required></span>
+                </div>
+                <div>
+                    <span><input type="submit" value="Đăng kí" class="myButton"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col span_1_of_3">
+
+        <div class="contact-form">
+            <h2>Bản đồ</h2>
+            <div id="sample" style="height: 200px">
+
+            </div>
+        </div>
+    </div>
+</div>
+

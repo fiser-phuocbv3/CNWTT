@@ -1,0 +1,48 @@
+﻿
+
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "Login";
+}
+
+@{ 
+    string msg = "";
+
+    msg = ViewBag.msg;
+}
+@section menu{
+
+}
+
+<div class="section group">
+    <div class="col span_2_of_3">
+        <div class="contact-form">
+
+            <h2>Đăng nhập</h2>
+            <h3 style="color:red">@msg</h3>
+            <form method="post" action="@Url.Action("Login","Home")" onsubmit="">
+                <div>
+                    <span><label>Tên đăng nhập</label></span>
+                    <span><input name="username" type="text" required></span>
+                </div>
+
+                <div>
+                    <span><label>Mật khẩu</label></span>
+                    <span><input name="password" type="password" required></span>
+                </div>
+
+                <div>
+                    <span><input type="submit" value="Đăng nhập" class="myButton"></span>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="col span_1_of_3">
+        <div class="contact-form">
+            <h2>Bản đồ</h2>
+            <div id="sample" style="height: 200px">
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,83 @@
+﻿@model PagedList.IPagedList<manufacturer>
+@using PagedList.Mvc;
+@using PagedList;
+@using CNWTT.App_Start;
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "Manufacturer";
+}
+
+@{
+    IEnumerable<manufacturer> listManufacturer = null;
+
+    listManufacturer = Model;
+}
+
+<div class="widgets_area">
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">Quản lý hãng sản xuất</h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="quick-actions">
+                <ul>
+                    <li class="align_right"><a href="@Url.Action("NewManufacturer", "Admin")"><i class="icon-plus"></i></a></li>
+                    <li><h3>Thêm hãng sản xuất mới</h3></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="widgets_area">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="well light_blue">
+                    <div class="well-header">
+                        <h5>@CONFIG.MANUFACTUERE_DETAIL</h5>
+                        <ul>
+                            <li class="color_pick">
+                                <a href=""><i class="icon-th"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="well-content no-search">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên hãng sản xuất</th>
+                                    <th>Chỉnh sửa</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                @if (listManufacturer != null)
+                                {
+                                    int i = 1;
+                                    foreach (var l in listManufacturer)
+                                    {                                       
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@l.name</td>
+                                            <td><a class="btn" href="@Url.Action("EditManufacturer","Admin",new { idM = l.id})"><i class="icon-inbox"></i></a></td>
+                                        </tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="table_options bottom_options">
+                            <div class="pull-right">
+                                @Html.PagedListPager(Model, page => Url.Action("Manufacturer", "Admin", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,78 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "Manufacturer";
+}
+
+@{ 
+    string msg = null;
+    manufacturer m = null;
+    string title = "";
+    string valueSubmit = "";
+    string url = "";
+    string idM = "";
+    string name;
+
+    msg = ViewBag.msg;
+    m = ViewBag.Manufacturer;
+    idM = Request["idM"];
+
+}
+
+@{ 
+    if(m!= null)
+    {
+        title = "Chỉnh sửa hãng sản xuất";
+        valueSubmit = "Hoàn thành chỉnh sửa";
+        url = Url.Action("AEManufacturer", "Admin",new { idM = idM});
+        name = m.name;
+    }
+    else
+    {
+        title = "Thêm hãng sản xuất";
+        valueSubmit = "Thêm hãng sản xuất mới";
+        url = Url.Action("AEManufacturer", "Admin");
+        name = "";
+    }
+}
+<div class="widgets_area">
+
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">@title</h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid align_center" style="color:red">
+            @if (msg != null)
+            {
+                @msg
+            }
+        </div>
+    </div>
+    <div class="widgets_area"></div>
+
+    <form name="newManufacturerForm" action="@url" method="post" onsubmit="" id="newManufacturerForm">
+        <div class="widgets_area">
+            <div class="form_row control-group">
+                <div class="span2"><h4>Tên hãng sản xuất</h4></div>
+                <div class="field">
+                    <div class="span3">
+                        <input class="span3" type="text" required id="name" name="name" value="@name" placeholder="Tên hãng sản xuất">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="widgets_area"></div>
+        <div class="widgets_area"></div>
+       
+        <div class="widgets_area">
+            <div class="row-fluid align_center">
+                <input type="submit" class="blue btn btn-xlarge" value="@valueSubmit" id="submitAddManufacturer">
+                <a href="@Url.Action("Manufacturer", "Admin")" class="blue btn btn-xlarge">Trở về</a>
+            </div>
+        </div>
+    </form>
+</div>
+

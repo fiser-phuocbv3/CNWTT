@@ -1,0 +1,373 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="cnwttModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="accessory">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="manufacturer" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__accessori__produ__5535A963" FromRole="accessories" ToRole="product" />
+  </EntityType>
+  <EntityType Name="account">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="accountType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="accountInfors" Relationship="Self.FK__accountIn__accou__412EB0B6" FromRole="account" ToRole="accountInfor" />
+    <NavigationProperty Name="bills" Relationship="Self.FK__bill__account_id__46E78A0C" FromRole="account" ToRole="bill" />
+    <NavigationProperty Name="feedbacks" Relationship="Self.FK__feedback__accoun__440B1D61" FromRole="account" ToRole="feedback" />
+  </EntityType>
+  <EntityType Name="accountInfor">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="address" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="identify" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="phone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="account_id" Type="Int32" />
+    <NavigationProperty Name="account" Relationship="Self.FK__accountIn__accou__412EB0B6" FromRole="accountInfor" ToRole="account" />
+  </EntityType>
+  <EntityType Name="bill">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="totalMoney" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="accountAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="create_at" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="update_at" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="account_id" Type="Int32" />
+    <NavigationProperty Name="account" Relationship="Self.FK__bill__account_id__46E78A0C" FromRole="bill" ToRole="account" />
+    <NavigationProperty Name="billDetails" Relationship="Self.FK__billDetai__bill___4E88ABD4" FromRole="bill" ToRole="billDetail" />
+  </EntityType>
+  <EntityType Name="billDetail">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="money" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="accept" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="bill_id" Type="Int32" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="bill" Relationship="Self.FK__billDetai__bill___4E88ABD4" FromRole="billDetail" ToRole="bill" />
+    <NavigationProperty Name="product" Relationship="Self.FK__billDetai__produ__4F7CD00D" FromRole="billDetail" ToRole="product" />
+  </EntityType>
+  <EntityType Name="desktop">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="processor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gpu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hardDisk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="screen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="os" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="connect" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__desktop__product__5DCAEF64" FromRole="desktop" ToRole="product" />
+  </EntityType>
+  <EntityType Name="feedback">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="account_id" Type="Int32" />
+    <NavigationProperty Name="account" Relationship="Self.FK__feedback__accoun__440B1D61" FromRole="feedback" ToRole="account" />
+  </EntityType>
+  <EntityType Name="laptop">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="processor" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gpu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="hardDisk" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="screen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="os" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="connect" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="pin" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__laptop__product___5AEE82B9" FromRole="laptop" ToRole="product" />
+  </EntityType>
+  <EntityType Name="manufacturer">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="products" Relationship="Self.FK__product__manufac__4BAC3F29" FromRole="manufacturer" ToRole="product" />
+  </EntityType>
+  <EntityType Name="news">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="content" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="describe" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+  </EntityType>
+  <EntityType Name="phone">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="phoneType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="screen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="camera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="memory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="os" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="chipset" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__phone__product_i__5812160E" FromRole="phone" ToRole="product" />
+  </EntityType>
+  <EntityType Name="product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="cost" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="picture" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="number" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="describle" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="productType" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="manufacturer_id" Type="Int32" />
+    <NavigationProperty Name="accessories" Relationship="Self.FK__accessori__produ__5535A963" FromRole="product" ToRole="accessories" />
+    <NavigationProperty Name="billDetails" Relationship="Self.FK__billDetai__produ__4F7CD00D" FromRole="product" ToRole="billDetail" />
+    <NavigationProperty Name="desktops" Relationship="Self.FK__desktop__product__5DCAEF64" FromRole="product" ToRole="desktop" />
+    <NavigationProperty Name="laptops" Relationship="Self.FK__laptop__product___5AEE82B9" FromRole="product" ToRole="laptop" />
+    <NavigationProperty Name="manufacturer" Relationship="Self.FK__product__manufac__4BAC3F29" FromRole="product" ToRole="manufacturer" />
+    <NavigationProperty Name="phones" Relationship="Self.FK__phone__product_i__5812160E" FromRole="product" ToRole="phone" />
+    <NavigationProperty Name="tablets" Relationship="Self.FK__tablet__product___52593CB8" FromRole="product" ToRole="tablet" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="tablet">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="screen" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="gpu" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ram" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="memory" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="camera" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="connect" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="product_id" Type="Int32" />
+    <NavigationProperty Name="product" Relationship="Self.FK__tablet__product___52593CB8" FromRole="tablet" ToRole="product" />
+  </EntityType>
+  <Association Name="FK__accessori__produ__5535A963">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="accessories" Type="Self.accessory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="accessories">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__accountIn__accou__412EB0B6">
+    <End Role="account" Type="Self.account" Multiplicity="0..1" />
+    <End Role="accountInfor" Type="Self.accountInfor" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="accountInfor">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__bill__account_id__46E78A0C">
+    <End Role="account" Type="Self.account" Multiplicity="0..1" />
+    <End Role="bill" Type="Self.bill" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="bill">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__feedback__accoun__440B1D61">
+    <End Role="account" Type="Self.account" Multiplicity="0..1" />
+    <End Role="feedback" Type="Self.feedback" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="account">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="feedback">
+        <PropertyRef Name="account_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__billDetai__bill___4E88ABD4">
+    <End Role="bill" Type="Self.bill" Multiplicity="0..1" />
+    <End Role="billDetail" Type="Self.billDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="bill">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="billDetail">
+        <PropertyRef Name="bill_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__billDetai__produ__4F7CD00D">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="billDetail" Type="Self.billDetail" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="billDetail">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__desktop__product__5DCAEF64">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="desktop" Type="Self.desktop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="desktop">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__laptop__product___5AEE82B9">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="laptop" Type="Self.laptop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="laptop">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__product__manufac__4BAC3F29">
+    <End Role="manufacturer" Type="Self.manufacturer" Multiplicity="0..1" />
+    <End Role="product" Type="Self.product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="manufacturer">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="product">
+        <PropertyRef Name="manufacturer_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__phone__product_i__5812160E">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="phone" Type="Self.phone" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="phone">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__tablet__product___52593CB8">
+    <End Role="product" Type="Self.product" Multiplicity="0..1" />
+    <End Role="tablet" Type="Self.tablet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="tablet">
+        <PropertyRef Name="product_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="cnwttEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="accessories" EntityType="Self.accessory" />
+    <EntitySet Name="accounts" EntityType="Self.account" />
+    <EntitySet Name="accountInfors" EntityType="Self.accountInfor" />
+    <EntitySet Name="bills" EntityType="Self.bill" />
+    <EntitySet Name="billDetails" EntityType="Self.billDetail" />
+    <EntitySet Name="desktops" EntityType="Self.desktop" />
+    <EntitySet Name="feedbacks" EntityType="Self.feedback" />
+    <EntitySet Name="laptops" EntityType="Self.laptop" />
+    <EntitySet Name="manufacturers" EntityType="Self.manufacturer" />
+    <EntitySet Name="news" EntityType="Self.news" />
+    <EntitySet Name="phones" EntityType="Self.phone" />
+    <EntitySet Name="products" EntityType="Self.product" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="tablets" EntityType="Self.tablet" />
+    <AssociationSet Name="FK__accessori__produ__5535A963" Association="Self.FK__accessori__produ__5535A963">
+      <End Role="product" EntitySet="products" />
+      <End Role="accessories" EntitySet="accessories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__accountIn__accou__412EB0B6" Association="Self.FK__accountIn__accou__412EB0B6">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="accountInfor" EntitySet="accountInfors" />
+    </AssociationSet>
+    <AssociationSet Name="FK__bill__account_id__46E78A0C" Association="Self.FK__bill__account_id__46E78A0C">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="bill" EntitySet="bills" />
+    </AssociationSet>
+    <AssociationSet Name="FK__feedback__accoun__440B1D61" Association="Self.FK__feedback__accoun__440B1D61">
+      <End Role="account" EntitySet="accounts" />
+      <End Role="feedback" EntitySet="feedbacks" />
+    </AssociationSet>
+    <AssociationSet Name="FK__billDetai__bill___4E88ABD4" Association="Self.FK__billDetai__bill___4E88ABD4">
+      <End Role="bill" EntitySet="bills" />
+      <End Role="billDetail" EntitySet="billDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__billDetai__produ__4F7CD00D" Association="Self.FK__billDetai__produ__4F7CD00D">
+      <End Role="product" EntitySet="products" />
+      <End Role="billDetail" EntitySet="billDetails" />
+    </AssociationSet>
+    <AssociationSet Name="FK__desktop__product__5DCAEF64" Association="Self.FK__desktop__product__5DCAEF64">
+      <End Role="product" EntitySet="products" />
+      <End Role="desktop" EntitySet="desktops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__laptop__product___5AEE82B9" Association="Self.FK__laptop__product___5AEE82B9">
+      <End Role="product" EntitySet="products" />
+      <End Role="laptop" EntitySet="laptops" />
+    </AssociationSet>
+    <AssociationSet Name="FK__product__manufac__4BAC3F29" Association="Self.FK__product__manufac__4BAC3F29">
+      <End Role="manufacturer" EntitySet="manufacturers" />
+      <End Role="product" EntitySet="products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__phone__product_i__5812160E" Association="Self.FK__phone__product_i__5812160E">
+      <End Role="product" EntitySet="products" />
+      <End Role="phone" EntitySet="phones" />
+    </AssociationSet>
+    <AssociationSet Name="FK__tablet__product___52593CB8" Association="Self.FK__tablet__product___52593CB8">
+      <End Role="product" EntitySet="products" />
+      <End Role="tablet" EntitySet="tablets" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

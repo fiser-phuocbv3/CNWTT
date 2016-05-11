@@ -1,0 +1,64 @@
+﻿@model PagedList.IPagedList<news>
+@using PagedList.Mvc;
+@using PagedList;
+@using CNWTT.App_Start;
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "News";
+}
+
+@{ 
+    IEnumerable<news> listN = null;
+
+    listN = Model;
+}
+
+@section menu{
+    
+}
+@if (listN != null)
+{
+    foreach (var l in listN)
+    { 
+        <div class="image group">
+            <div class="grid images_3_of_1">
+                <img src="@l.picture" />
+            </div>
+            <div class="grid news_desc">
+                <h3><a href="@Url.Action("ViewNews","Home",new { idNews = l.id})">@l.title</a></h3>
+                
+                <p>@l.describe <a href="@Url.Action("ViewNews","Home",new { idNews = l.id})" title="more">[...]</a></p>
+            </div>
+        </div>
+    }
+}
+<!--
+<div class="image group">
+    <div class="grid images_3_of_1">
+        <img src="images/newsimg2.jpg" alt="" />
+    </div>
+    <div class="grid news_desc">
+        <h3>Lorem Ipsum is simply dummy text </h3>
+        <h4>Posted on Aug 8th, 2013 by <span><a href="#">Finibus Bonorum</a></span></h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur <a href="#" title="more">[....]</a></p>
+    </div>
+</div>
+<div class="image group">
+    <div class="grid images_3_of_1">
+        <img src="images/newsimg3.jpg" alt="" />
+    </div>
+    <div class="grid news_desc">
+        <h3>Lorem Ipsum is simply dummy text </h3>
+        <h4>Posted on Aug 1st, 2013 by <span><a href="#">Finibus Bonorum</a></span></h4>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur <a href="#" title="more">[....]</a></p>
+    </div>
+</div>
+
+    -->
+<div class="content-pagenation">
+    @Html.PagedListPager(Model, page => Url.Action("News", "Home", new { page }))
+</div>
+         
+

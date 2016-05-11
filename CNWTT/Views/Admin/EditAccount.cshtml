@@ -1,0 +1,184 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "EditAccount";
+}
+
+
+@{     
+    string msg = "adas";
+    string type = "";
+    string title = "";
+    string userName = "";
+    string accountType = "";
+    string name = "";
+    string address = "";
+    string identity = "";
+    string phone = "";
+    string email = "";   
+    account acc = null;
+    accountInfor accInfor = null;
+}
+
+@{
+    type = ViewBag.type;
+    msg = ViewBag.msg;
+    //idAccount = Request["idAccount"];
+    acc = ViewBag.acc;
+    accInfor = ViewBag.accInfor;
+    if (acc != null)
+    {
+
+        userName = acc.username;
+        accountType = acc.accountType;
+        name = accInfor.name;
+        address = accInfor.address;
+        identity = accInfor.identify;
+        phone = accInfor.phone;
+        email = accInfor.email;
+    }
+}
+
+<div class="widgets_area">
+
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">Thông tin chi tiết người quản trị</h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid align_center" style="color:red">
+            @msg @type
+        </div>
+    </div>
+
+    @if(type == "editAccount")
+    {
+
+    <form action="@Url.Action("AddAccount","Admin")" method="post" onsubmit="" name="1">
+        <div class="widgets_area">
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Tên tài khoản</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="userName" name="userName" value="@userName" placeholder="Tên đăng nhập" readOnly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Họ và tên</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required name="name" value="@name" id="name" placeholder="Họ và tên">
+                    </div>
+                </div>
+            </div>      
+          
+            <div class="form_row control-group">
+                <div class="span2"><h4>Số chứng minh thư</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="identify" name="identify" value="@identity" placeholder="Số chứng minh thư">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Số điện thoại</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="phone" name="phone" value="@phone" placeholder="Số điện thoại">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Địa chỉ</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="address" name="address" value="@address" placeholder="Địa chỉ">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Email</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="email" name="email" value="@email" placeholder="Email">
+                    </div>
+                </div>
+            </div>        
+
+          
+            <div class="form_row control-group">
+                <div class="span2"><h4>Loại tài khoản</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="accountType" name="accountType" value="@accountType" placeholder="Loại tài khoản" readOnly>
+                    </div>
+                </div>
+            </div>
+          
+
+
+        </div>
+
+        <div class="widgets_area">
+            <div class="row-fluid align_center">              
+                <input type="submit" class="blue btn btn-xlarge" value="Hoàn thành chỉnh sửa" id="submit">             
+                <a href="@Url.Action("Home", "Admin")" class="blue btn btn-xlarge">Trở về</a>
+            </div>
+        </div>
+    </form>
+    }
+    @if (type == "changePassword")
+    {
+
+        <form action="@Url.Action("ChangePassword", "Admin")" method="post" name="changePasswordAccount">
+            <div class="widgets_area">
+                <div class="form_row control-group">
+                    <div class="span3"><h4>Mật khẩu cũ</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="password" required id="oldPassword" name="oldPassword" placeholder="Mật khẩu cũ">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span3"><h4>Mật khẩu mới</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="password" required id="newPassword" name="newPassword" placeholder="Mật khẩu mới">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span3"><h4>Nhập lại mật khẩu mới</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="password" required id="confirmNewPassword" name="confirmNewPassword" placeholder="Nhập lại mật khẩu mới">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="widgets_area">
+            </div>
+            <div class="widgets_area">
+                <div class="row-fluid align_center">
+                    <input type="submit" class="blue btn btn-xlarge" value="Hoàn thành chỉnh sửa" id="submit">
+                    <a href="@Url.Action("Home", "Admin")" class="blue btn btn-xlarge">Trở về</a>
+                </div>
+            </div>
+        </form>
+    }
+</div>
+
+
+
+
+

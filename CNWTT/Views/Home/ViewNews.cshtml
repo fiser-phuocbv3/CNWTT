@@ -1,0 +1,44 @@
+﻿
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "ViewNews";
+}
+@{ 
+    news n = null;
+
+    n = ViewBag.News;
+}
+
+@section menu{
+    
+}
+@if (n != null)
+{
+    <div class="widgets_area">
+        <div class="image group">
+            <div class="grid images_3_of_1">
+                <img src="@n.picture" alt="" />
+            </div>
+            <div class="grid news_desc">
+                <h3>@n.title</h3>            
+                <p>@n.describe</p>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="widgets_area">
+        <div class="align_left">
+            @n.content
+        </div>
+    </div>
+}
+else
+{
+    <div class="widgets_area">
+        <div class="align_center" style="color:red">
+            Không có dữ liệu
+        </div>
+    </div>
+}
+

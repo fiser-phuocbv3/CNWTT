@@ -1,0 +1,140 @@
+﻿@using System.Collections;
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "ViewBillDetail";
+
+    bill bill = null;
+    account account = null;
+    accountInfor accInfor = null;
+    IList<billDetail> list = null;
+    Hashtable htProduct = null;
+    string userName = "";
+    string name = "";
+    string totalMoneyBill = "";
+    string date = "";
+
+}
+
+@{ 
+    bill = ViewBag.bill;
+    account = ViewBag.account;
+    accInfor = ViewBag.accInfor;
+    list = ViewBag.listBillDetail;
+    htProduct = ViewBag.htProduct;
+    if(bill != null)
+    {
+        totalMoneyBill = bill.totalMoney;
+        date = bill.create_at;
+    }
+    if(account != null)
+    {
+        userName = account.username;
+    }
+    if(accInfor != null)
+    {
+        name = accInfor.name;
+    }
+}
+<div class="widgets_area">
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">Chi tiết đơn đặt hàng</h2>
+    </div>
+
+    <div class="widgets_area">
+    </div>
+ 
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="span2"><h4>Tài khoản</h4></div>
+            <div class="span3">
+                <div class="field">
+                    @userName
+                </div>
+            </div>
+
+            <div class="span2"><h4>Tên người dùng</h4></div>
+            <div class="span3">
+                <div class="field">
+                    @name
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="span2"><h4>Tổng đơn hàng</h4></div>
+            <div class="span3">
+                <div class="field">
+                    @totalMoneyBill
+                </div>
+            </div>
+
+            <div class="span2"><h4>Ngày đặt hàng</h4></div>
+            <div class="span3">
+                <div class="field">
+                    @date
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="widgets_area">
+    </div>
+
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="well light_blue">
+                <div class="well-header">
+                    <h5>Chi tiết đơn đặt hàng</h5>
+                    <ul>
+                        <li class="color_pick">
+                            <a href=""><i class="icon-th"></i></a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="well-content no-search">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th class="span1">STT</th>
+                                <th class="span2">Tên sản phẩm</th>
+                                <th class="span2">Giá </th>
+                                <th class="span2">Số lượng</th>                               
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                                if (list != null)
+                                {
+                                    foreach (var item in list)
+                                    {
+                                        i++;
+                                        string nameProduct = (string)htProduct[item.product_id];
+                                        <tr>la
+                                            <td class="span1">@i</td>
+                                            <td class="span2">@nameProduct</td>
+                                            <td class="span2">@item.money</td>
+                                            <td class="span2">@item.number</td>
+                                        </tr>
+                                    }
+                                }
+                            }
+                        </tbody>
+                    </table>
+
+                    <div class="table_options bottom_options">
+                        <div class="pull-right">
+                          
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

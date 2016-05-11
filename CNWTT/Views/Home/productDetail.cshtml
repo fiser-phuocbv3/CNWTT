@@ -1,0 +1,137 @@
+﻿@using CNWTT.App_Start;
+@{
+    Layout          = "~/Views/Shared/User.cshtml";
+    ViewBag.Title   = "productDetail";
+
+    IList<product> list = null;
+
+    list = ViewBag.listProduct;
+
+}
+
+@section menu{
+    @RenderPage("~/Views/Home/MainMenu.cshtml")
+}
+
+<div class="content_top">
+    <div class="heading">
+        <h3>Tất cả sản phẩm</h3>
+    </div>
+    <!--
+    <div class="see">
+        <p><a href="#">See all Products</a></p>
+    </div>
+        -->
+    <div class="clear"></div>
+</div>
+
+<div class="section group">
+    <div class="header_slide">
+        <div class="header_bottom_left">
+            <div class="categories">
+                <ul>
+                    <h3>Hãng sản xuất</h3>
+                    <li><a href="#">Điện thoại</a></li>
+                    <li><a href="#">Máy tính để bàn</a></li>
+                    <li><a href="#">Laptop</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Sports &amp; Fitness</a></li>
+                    <li><a href="#">Footwear</a></li>
+                    <li><a href="#">Jewellery</a></li>
+                    <li><a href="#">Clothing</a></li>
+                    <li><a href="#">Home Decor &amp; Kitchen</a></li>
+                    <li><a href="#">Beauty &amp; Healthcare</a></li>
+                    <li><a href="#">Toys, Kids &amp; Babies</a></li>
+                </ul>
+            </div>
+            
+            <div class="categories" style="margin-top: 20px">
+                <ul>
+                    <h3>Hãng sản xuất</h3>
+                    <li><a href="#">Điện thoại</a></li>
+                    <li><a href="#">Máy tính để bàn</a></li>
+                    <li><a href="#">Laptop</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Sports &amp; Fitness</a></li>
+                    <li><a href="#">Laptop</a></li>
+                    <li><a href="#">Accessories</a></li>
+                    <li><a href="#">Software</a></li>
+                    <li><a href="#">Sports &amp; Fitness</a></li>
+                </ul>
+            </div>
+                
+        </div>
+
+        <div id="displayProduct">  
+        @if (list != null)
+        {
+            int c = (list.Count - 1) / 4;
+            for (int i = 0; i < c; i++)
+            {
+                <div class="header_bottom_right">             
+                @for (int j = i * 4; j < (i * 4 + 4); j++)
+                {
+                    string img = list[j].picture;
+                    string name = list[j].name;
+                    string cost = list[j].cost;
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@Url.Action("Preview","Home", new {p = list[i].id})"><img src="@img" alt="" /></a>
+                        <h2>@name</h2>
+                        <div class="price-details">
+                            <div class="price-number">
+                                <p><span class="rupees">@cost @CONFIG.CURRENT</span></p>
+                            </div>
+                            <div class="add-cart">
+                                <h4><a href="@Url.Action("AddCart","Home", new { id = list[i].id})">Thêm vào giỏ</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>              
+                }
+                </div>
+            }
+
+            <div class="header_bottom_right">
+                @for (int i = c * 4; i < list.Count; i++)
+                {
+                    string img = list[i].picture;
+                    string name = list[i].name;
+                    string cost = list[i].cost;
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@Url.Action("Preview","Home", new {p = list[i].id})"><img src="@img" alt="" /></a>
+                        <h2>@name </h2>
+                        <div class="price-details">
+                            <div class="price-number">
+                                <p><span class="rupees">@cost @CONFIG.CURRENT</span></p>
+                            </div>
+                            <div class="add-cart">
+                                <h4><a href="@Url.Action("AddCart","Home", new { id = list[i].id})">Thêm vào giỏ</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        </div>
+    </div>
+</div>
+
+
+
+<div class="header_right">
+    <div class="content-pagenation">
+        <li>Trang &nbsp; &nbsp;</li>
+        <li id="currentPage" value=""><a href="javascript:void(0)">1</a></li>&nbsp; &nbsp;
+        <li id="first"><a href="javascript:void(0)">Prev</a></li>
+        <li id="page1"><a href="javascript:void(0)">1</a></li>
+        <li id="page2"><a href="javascript:void(0)">2</a></li>
+        <li id="page3"><a href="javascript:void(0)">3</a></li>
+        <li  id="pageCount" value="@ViewBag.pageCount"><span>...</span></li>
+        <li id="last"><a href="javascript:void(0)">Next</a></li>
+        <div class="clear"></div>
+    </div>
+</div>
+

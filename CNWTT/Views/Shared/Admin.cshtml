@@ -1,0 +1,165 @@
+﻿@using CNWTT.App_Start;
+
+@{ 
+    account account = null;
+}
+
+@{ 
+    //account = ViewBag.account;
+    account = (account)Session[CONFIG.SESSION_ADMIN];
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewBag.title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <link href="~/Admin/css/bootstrap.css" rel="stylesheet">
+    <link href="~/Admin/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="~/Admin/css/stylesheet.css" rel="stylesheet">
+    <link href="~/Admin/icon/font-awesome.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+    <link rel="shortcut icon" href="~/Admin/img/favicon.png">
+
+    <script src="~/Admin/js/html5shiv.js"></script>
+   
+</head>
+<body>
+    <header class="dark_grey">
+        <a href="#" class="logo_image"><span class="hidden-480">@CONFIG.MANAGER_SYSTEM</span></a>
+        <ul class="header_actions pull-left hidden-480 hidden-768">
+            <li rel="tooltip" data-placement="bottom" title="Hide/Show main navigation">
+                <a href="javascript:void(0)" class="hide_navigation">
+                    <i class="icon-chevron-left"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="header_actions">
+            <!--
+            <li rel="tooltip" data-placement="left" title="Header color scheme"
+                class="color_pick header_color_pick hidden-480">
+                sdsa
+            </li>
+
+                <li class="dropdown"><a href="#"><img src="demo/avatar_06.png" alt="User image" class="avatar"> Bernad Delic <i class="icon-angle-down"></i></a>
+                <ul>
+                    <li><a href="#"><i class="icon-cog"></i> User options</a></li>
+                    <li><a href="#"><i class="icon-inbox"></i> Messages</a></li>
+                    <li><a href="#"><i class="icon-user"></i> Friends</a></li>
+                    <li><a href="#"><i class="icon-remove"></i> Logout</a></li>
+                </ul>
+            </li>
+
+           -->
+            <li class="dropdown"><span class="span2"></span><a href="javascript:void(0)">@account.username <i class="icon-angle-down"></i></a>
+                <ul>
+                    <li><a href="@Url.Action("Home","Admin")"><i class="icon-cog"></i>Thông tin chi tiết</a></li>
+                    <li><a href="@Url.Action("ChangePassword","Admin")"><i class="icon-inbox"></i>Thay đổi mật khẩu</a></li>                   
+                    <li><a href="@Url.Action("Logout","Home")"><i class="icon-remove"></i> Logout</a></li>
+                </ul>
+            </li>
+            <li><a href="@Url.Action("Logout","Admin")"><i class="icon-signout"></i> <span class="hidden-768 hidden-480">Logout</span></a></li>
+            <li class="responsive_menu"><a class="iconic" href="#"><i class="icon-reorder"></i></a></li>
+        </ul>
+    </header>
+
+    <div id="main_navigation" class="dark_grey">
+        <div class="inner_navigation">
+            <ul class="main">
+                <li>
+                    <a href="@Url.Action("Home","Admin")"><i class="icon-home"></i>@CONFIG.CONTROL_BROAD</a>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="icon-reorder"></i>@CONFIG.PRODUCT_CONTENT</a>
+                    <ul class="sub_main">
+                        <li><a href="@Url.Action("ViewProduct","Admin",new { content = "mobile" })">@CONFIG.PRODUCT_CONTENT_MOBILE</a></li>
+                        <li><a href="@Url.Action("ViewProduct","Admin",new { content = "tablet" })">@CONFIG.PRODUCT_CONTENT_TABLET</a></li>
+                        <li><a href="@Url.Action("ViewProduct","Admin",new { content = "laptop" })">@CONFIG.PRODUCT_CONTENT_LAPTOP</a></li>
+                        <li><a href="@Url.Action("ViewProduct","Admin",new { content = "desktop" })">@CONFIG.PRODUCT_CONTENT_DESKTOP</a></li>
+                        <li><a href="@Url.Action("ViewProduct","Admin",new { content = "accessories"})">@CONFIG.PRODUCT_CONTENT_ACCESSORY</a></li>                     
+                    </ul>
+                </li>
+                <li>
+                    <a href="javascript:void(0)"><i class="icon-tasks"></i>Danh sách đặt hàng</a>
+                    <ul class="sub_main">
+                        <li><a href="@Url.Action("ViewBill","Admin")">Danh sách đặt hàng</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="@Url.Action("Manufacturer","Admin")"><i class="icon-tasks"></i>@CONFIG.MANUFACTURER</a>
+                </li>
+                <li><a href="@Url.Action("News","Admin")"><i class="icon-calendar"></i>Bài viết</a></li>
+                <li><a href="@Url.Action("ViewFeedBack","Admin")"><i class="icon-signal"></i>Phản hồi</a></li>
+                <li><a href="@Url.Action("ViewAccount","Admin")"><i class="icon-table"></i>Tài khoản</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="content">
+      
+        @RenderBody()
+        
+    </div>
+
+        <script src="~/Admin/js/jquery-1.10.2.js"></script>
+        <script src="~/Admin/js/jquery-ui-1.10.3.js"></script>
+        <script src="~/Admin/js/bootstrap.js"></script>
+        <script src="~/Admin/js/jquery.validate.js"></script>
+
+        <script src="~/Admin/js/library/jquery.collapsible.min.js"></script>
+        <script src="~/Admin/js/library/jquery.mCustomScrollbar.min.js"></script>
+        <script src="~/Admin/js/library/jquery.mousewheel.min.js"></script>
+        <script src="~/Admin/js/library/jquery.uniform.min.js"></script>
+
+        <script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCL6XtCGot7S7cfxnO6tRfeZx9kLQQRMtA&amp;sensor=false"></script>
+        <script src="~/Admin/js/library/jquery.sparkline.min.js"></script>
+        <script src="~/Admin/js/library/chosen.jquery.min.js"></script>
+        <script src="~/Admin/js/library/jquery.easytabs.js"></script>
+        <script src="~/Admin/js/library/flot/excanvas.min.js"></script>
+        <script src="~/Admin/js/library/flot/jquery.flot.js"></script>
+        <script src="~/Admin/js/library/flot/jquery.flot.pie.js"></script>
+        <script src="~/Admin/js/library/flot/jquery.flot.selection.js"></script>
+        <script src="~/Admin/js/library/flot/jquery.flot.resize.js"></script>
+        <script src="~/Admin/js/library/flot/jquery.flot.orderBars.js"></script>
+        <script src="~/Admin/js/library/maps/jquery.vmap.js"></script>
+        <script src="~/Admin/js/library/maps/maps/jquery.vmap.world.js"></script>
+        <script src="~/Admin/js/library/maps/data/jquery.vmap.sampledata.js"></script>
+        <script src="~/Admin/js/library/jquery.autosize-min.js"></script>
+        <script src="~/Admin/js/library/charCount.js"></script>
+        <script src="~/Admin/js/library/jquery.minicolors.js"></script>
+        <script src="~/Admin/js/library/jquery.tagsinput.js"></script>
+        <script src="~/Admin/js/library/fullcalendar.min.js"></script>
+        <script src="~/Admin/js/library/footable/footable.js"></script>
+        <script src="~/Admin/js/library/footable/data-generator.js"></script>
+
+        <script src="~/Admin/js/library/bootstrap-datetimepicker.js"></script>
+        <script src="~/Admin/js/library/bootstrap-timepicker.js"></script>
+        <script src="~/Admin/js/library/bootstrap-datepicker.js"></script>
+        <script src="~/Admin/js/library/bootstrap-fileupload.js"></script>
+        <script src="~/Admin/js/library/jquery.inputmask.bundle.js"></script>
+        <script src="~/Admin/js/library/jquery.inputmask.bundle.js"></script>
+        <script src="~/Admin/js/library/bootstrapSwitch.js"></script>
+        <script src="~/Admin/js/library/bootstrap-modal.js"></script>
+        <script src="~/Admin/js/library/bootstrap-modalmanager.js"></script>
+
+        <script src="~/Admin/js/library/editor/wysihtml5-0.3.0.js"></script>
+        <script src="~/Admin/js/library/editor/bootstrap-wysihtml5.js"></script>
+            <script src="~/Admin/js/library/bootstrap-select.js"></script>
+
+        <script src="~/Admin/js/flatpoint_core.js"></script>
+
+    <script src="~/Admin/js/forms.js"></script>
+
+    <script src="~/Admin/js/forms_advanced.js"></script>
+    <script src="~/Admin/js/forms.js"></script>
+    <script src="~/Admin/js/js.js"></script>
+</body>
+</html>

@@ -1,0 +1,179 @@
+﻿
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "AddAccount";
+    string msg = "";
+    string idAccount = "";
+    string userName = "";
+    string accountType = "";
+    string name = "";
+    string address = "";
+    string identity = "";
+    string phone = "";
+    string email = "";
+    string title = "";
+    string readOnly = "";  
+    account acc = null;
+    accountInfor accInfor = null;
+}
+
+@{ 
+    msg = ViewBag.msg;
+    idAccount = Request["idAccount"];
+    acc = ViewBag.acc;
+    accInfor = ViewBag.accInfor;
+    if (acc != null)
+    {
+        readOnly = "readonly";
+        title = "Thông tin chi tiết tài khoản";
+        userName = acc.username;
+        accountType = acc.accountType;
+        name = accInfor.name;
+        address = accInfor.address;
+        identity = accInfor.identify;
+        phone = accInfor.phone;
+        email = accInfor.email;
+    }
+    else
+    {
+        readOnly = "";
+        title = "Thêm tài khoản";
+    }
+}
+
+<div class="widgets_area">
+
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">@title</h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid align_center" style="color:red">
+           @msg
+        </div>
+    </div>
+
+
+    <form action="@Url.Action("AddAccount","Admin")" method="post" onsubmit="" name="addAccountAdmin" id="addAccountAdmin">
+        <div class="widgets_area">
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Họ và tên</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required name="name" value="@name" id="name" placeholder="Họ và tên" @readOnly>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="form_row control-group">
+                <div class="span2"><h4>Tên đăng nhập</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="userName" name="userName" value="@userName" placeholder="Tên đăng nhập"  @readOnly>
+                    </div>
+                </div>
+            </div>
+            @if (idAccount == null)
+            {
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Mật khẩu</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="password" required id="password" name="password" value="" placeholder="Mật khẩu">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Nhập lại mật khẩu</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="password" required id="confirmPassword" name="confirmPassword" value="" placeholder="Nhập lại mật khẩu">
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="form_row control-group">
+                <div class="span2"><h4>Số chứng minh thư</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="identify" name="identify" value="@identity" placeholder="Số chứng minh thư" @readOnly>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Số điện thoại</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="phone" name="phone" value="@phone" placeholder="Số điện thoại" @readOnly>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form_row control-group">
+                <div class="span2"><h4>Địa chỉ</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="address" name="address" value="@address" placeholder="Địa chỉ" @readOnly>
+                    </div>
+                </div>
+            </div>
+           
+            <div class="form_row control-group">
+                <div class="span2"><h4>Email</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="email" name="email" value="@email" placeholder="Email" @readOnly>
+                    </div>
+                </div>
+            </div>
+
+            @if (idAccount == null)
+            {
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Loại tài khoản</h4></div>
+                    <div class="field">
+
+                        <div class="span6 no-search">
+                            <select class="span5 chosen" required id="accountType" name="accountType">
+                                <option value="">Chọn loại tài khoản</option>
+                                <option value="admin">Admin</option>
+                                <option value="user">User</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Loại tài khoản</h4></div>
+                    <div class="field">
+                        <div class="span5">
+                            <input class="span5" type="text" required id="accountType" name="accountType" value="@accountType" placeholder="Email" @readOnly>
+                        </div>
+                    </div>
+                </div>
+            }
+
+
+        </div>
+
+        <div class="widgets_area">
+            <div class="row-fluid align_center">
+                @if (idAccount == null)
+                {
+                    <input type="submit" class="blue btn btn-xlarge" value="Thêm tài khoản" id="submit">
+                }              
+                <a href="@Url.Action("ViewAccount", "Admin")" class="blue btn btn-xlarge">Trở về</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+
+
+

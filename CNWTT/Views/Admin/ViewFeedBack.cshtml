@@ -1,0 +1,97 @@
+﻿@model PagedList.IPagedList<feedback>
+@using PagedList.Mvc;
+@using PagedList;
+@using System.Collections;
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "ViewFeedBack";
+    IList<account> listAccount = null;
+    Hashtable ht = null;
+    string p = "";
+}
+
+@{
+    IPagedList<feedback> model = Model;
+    ht = ViewBag.hashtable;
+    p = (Request["page"] != null) ? Request["page"] : "1";
+    
+}
+<div class="widgets_area">
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">Thông tin phản hồi</h2>
+    </div>
+
+    <!--
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="quick-actions">
+                <ul>
+                    <li class="align_right"><a href="@Url.Action("AddNews","Admin")"><i class="icon-plus"></i></a></li>
+                    <li><h3>Thêm bài viết mới</h3></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+        -->
+    <div class="widgets_area">
+    </div>
+
+    <div class="widgets_area">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="well light_blue">
+                    <div class="well-header">
+                        <h5>Danh sách phản hồi</h5>
+                        <ul>
+                            <li class="color_pick">
+                                <a href=""><i class="icon-th"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="well-content no-search">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th class="span1">STT</th>
+                                    <th class="span3">Người phản hồi</th>
+                                    <th class="span7">Nội dung</th>
+                                    <th class="span1">Xóa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    int i = 0;
+                                }
+                                @foreach (var item in model)
+                                {
+                                    i++;
+                                    string accountId = item.account_id.ToString();
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@ht[accountId].ToString()</td>
+                                        <td>@item.content</td>
+                                        <td><a class="btn" href="@Url.Action("DeleteFeedBack","Admin", new {p, idFeedBack = item.id})"><i class="icon-trash"></i></a></td>
+                                    </tr>
+
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="table_options bottom_options">
+                            <div class="pull-right">
+                                @Html.PagedListPager(Model, page => Url.Action("ViewFeedBack", "Admin", new { page }))
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

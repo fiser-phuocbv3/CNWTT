@@ -1,0 +1,121 @@
+﻿@using CNWTT.App_Start;
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "ViewNews";
+}
+
+@{
+    string title = "";
+    string msg = "";
+    string idNews = "";
+    string buttonSubmit = "";
+    string urlAction = "";
+    string newsTitle = "";
+    string describe = "";
+    string content = "";
+    string picture = "";
+    news news = null;
+
+    idNews = Request["idNews"];
+    news = ViewBag.news;
+    msg = ViewBag.msg;
+}
+
+@{
+    if(idNews != null)
+    {
+        buttonSubmit = "Hoàn thành chỉnh sửa";
+        title = "Chỉnh sửa bài viết";
+        ViewBag.Title = "ViewNews";
+        urlAction = Url.Action("ViewNews", "Admin", new { idNews = idNews});
+        if(news != null)
+        {
+            newsTitle = news.title;
+            describe = news.describe;
+            content = news.content;
+            picture = news.picture;
+        }
+    }
+    else
+    {
+        buttonSubmit = "Thêm bài viết";
+        title = "Thêm bài viết";
+        ViewBag.Title = "AddNews";
+        urlAction = Url.Action("AddNews", "Admin");
+    }
+}
+<div class="widgets_area">
+
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">@title</h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid align_center" style="color:red">
+            @if (msg != null)
+            {
+                @msg
+            }
+        </div>
+    </div>
+    
+
+    <form name="newsForm" action="@urlAction" method="post" onsubmit="" enctype="multipart/form-data">
+        <div class="widgets_area">
+            
+            <div class="form_row control-group">
+                <div class="span2"><h4>Tiêu đề bài viết</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <input class="span5" type="text" required id="title" name="title" value="@newsTitle" placeholder="Tiêu đề bài viết">
+                    </div>
+                </div>
+            </div>
+            <div class="form_row control-group">
+                <div class="span2"><h4>Mô tả tổng quát</h4></div>
+                <div class="field">
+                    <div class="span5">
+                        <textarea rows="5" cols="100" name="describe" id="describe" required placeholder="Mô tả tổng quát">@describe</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Nội dung chi tiết</h4></div>
+                <div class="field">
+                    <div class="span5">          
+                        <textarea rows="15" cols="100" name="content" id="contentN" required placeholder="Nội dung chi tiết">@content</textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Ảnh</h4></div>
+                <div class="field">
+                    <div class="span3">
+                        <div class="fileupload fileupload-new" data-provides="fileupload">
+                            <span class="btn btn-file">
+                                <span class="fileupload-new">@CONFIG.SELECT_FILE</span>
+                                <span class="fileupload-exists">@CONFIG.CHANGE_FILE</span>
+                                <input type="file" name="image_1" value="asd"/>
+                            </span>
+                            <span class="fileupload-name fileupload-preview">@picture</span>
+                            <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"><i class="icon-remove"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="widgets_area">
+            <div class="row-fluid align_center">
+                <input type="submit" class="blue btn btn-xlarge" value="@buttonSubmit" id="submit">
+                <a href="@Url.Action("News", "Admin")" class="blue btn btn-xlarge">Trở về</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+

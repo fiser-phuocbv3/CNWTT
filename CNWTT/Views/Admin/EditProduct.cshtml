@@ -1,0 +1,590 @@
+﻿
+@{
+    ViewBag.Title = "EditProduct";
+}
+
+@using CNWTT.App_Start;
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "AddProduct";
+
+    string msg = "";
+    string content = "";
+    string idProduct = "";
+    string name = "";
+    string cost = "";
+    string picture = "";
+    string number = "";
+    string describle = "";
+    string productType = "";
+    string manufacturer_id = "";
+
+    phone phone = null;
+    tablet tablet = null;
+    laptop laptop = null;
+    desktop desktop = null;
+    accessory accessory = null;
+    product product = null;
+    IList<manufacturer> listManufacturer = null;
+
+    content = Request["content"];
+    idProduct = Request["idProduct"];
+    listManufacturer = ViewBag.listManufacturer;
+    msg = ViewBag.msg;
+}
+
+@{
+    product = ViewBag.product;
+    if (product != null)
+    {
+        name = product.name;
+        cost = product.cost;
+        picture = product.picture;
+        number = product.number;
+        describle = product.describle;
+        productType = product.productType;
+        manufacturer_id = product.manufacturer_id.ToString();
+    }
+
+    if (content != null)
+    {
+        switch (content)
+        {
+            case "mobile":
+                phone = ViewBag.phone;
+                break;
+            case "tablet":
+                tablet = ViewBag.tablet;
+                break;
+            case "laptop":
+                laptop = ViewBag.laptop;
+                break;
+            case "desktop":
+                desktop = ViewBag.desktop;
+                break;
+            case "accessories":
+                accessory = ViewBag.accessories;
+                break;
+        }
+    }
+}
+
+<form name="formAddAccount" action="@Url.Action("EditProduct", "Admin", new { content = content, idProduct = idProduct })" method="post" onsubmit="return(validate());" enctype="multipart/form-data">
+    <div class="widgets_area">
+
+        <div class="row-fluid align_center">
+            <h2 style="font-weight:bold">Chỉnh sửa thông tin sản phẩm</h2>
+        </div>
+
+        <div class="widgets_area">
+            <div class="row-fluid align_center" style="color:red">
+                <h4>@msg</h4>
+            </div>
+        </div>
+
+        <div class="widgets_area">
+            <div class="form-control control-group">
+                <div class="span12"><h3>@CONFIG.GENERAL_INFORMATION</h3></div>
+            </div>
+
+            <div class="widgets_area">
+
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Tên sản phẩm</h4></div>
+                <div class="field">
+                    <div class="span3">
+                        <input class="span3" type="text" required id="name" name="name" value="@name" placeholder="Tên sản phẩm" require>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Giá sản phẩm</h4></div>
+                <div class="field">
+                    <div class="span3">
+                        <input class="span3" type="text" required id="cost" name="cost" value="@cost" placeholder="Giá sản phẩm" require>
+                    </div>
+                    <!--
+                    <div class="span3" id="message" style="color:red; display:none">
+                        Tên đăng nhập bị trùng
+                    </div>
+                        -->
+                </div>
+
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Số lượng</h4></div>
+                <div class="field">
+                    <div class="span3">
+                        <input class="span3" type="text" required id="number" name="number" value="@number" placeholder="Số lượng sản phẩm" require>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form_row control-group">
+                <div class="span2"><h4>Hãng sản xuất</h4></div>
+                <div class="field">
+
+                    <div class="span6 no-search">
+                        <select class="span3 chosen" required id="manufacturer_id" name="manufacturer_id">
+                            <option value="">Chọn nhà sản xuất</option>
+                            @if (listManufacturer != null)
+                            {
+                                foreach (var l in listManufacturer)
+                                {
+                                    string selected = (manufacturer_id != "" && l.id == Int32.Parse(manufacturer_id)) ?"selected":"";
+                                    <option value="@l.id" @selected>@l.name</option>
+                                }
+                            }
+                        </select>
+                    </div>
+
+                </div>
+            </div>
+
+
+            @for (int i = 1; i <= 5; i++)
+            {
+                <div class="form_row control-group">
+                    <label class="span2"><h4>Ảnh @i</h4></label>
+                    <div class="field">
+                        <div class="span3">
+                            <div class="fileupload fileupload-new" data-provides="fileupload">
+                                <span class="btn btn-file"><span class="fileupload-new">@CONFIG.SELECT_FILE</span><span class="fileupload-exists">@CONFIG.CHANGE_FILE</span><input type="file" name="image_@i" value="asd" /></span>
+                                <span class="fileupload-name fileupload-preview"> </span>
+                                <a href="#" class="close fileupload-exists" data-dismiss="fileupload" style="float: none"><i class="icon-remove"></i></a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+
+        </div>
+
+        @if (content == "mobile")
+        {
+            string phoneType =  "";
+            string screen = "";
+            string camera = "";
+            string memory = "";
+            string os = "";
+            string chipset = "";
+            if(phone != null)
+            {
+                phoneType = phone.phoneType;
+                screen = phone.screen;
+                camera = phone.camera;
+                memory = phone.memory;
+                os = phone.os;
+                chipset = phone.chipset;
+            }
+
+            <div class="widgets_area">
+                <div class="form-control control-group">
+                    <div class="span12"><h3>@CONFIG.DETAIL_INFORMATION</h3></div>
+                </div>
+                <div class="widgets_area">
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Kiểu điện thoại</h4></div>
+                    <div class="field">
+                        <div class="span6 no-search">
+                            @{ 
+                                string thang = "";
+                                string gap = "";
+                                string truot = "";
+                            }
+                            @if(phoneType != "")
+                            {
+                                switch (phoneType)
+                                {
+                                    case "Thẳng":
+                                        thang = "selected";
+                                        break;
+                                    case "Gập":
+                                        gap = "selected";
+                                        break;
+                                    case "Trượt":
+                                        truot = "selected";
+                                        break;
+                                }
+                            }
+                            <select class="span3 chosen" required id="typePhone" name="typePhone">
+                                <option value="">Chọn kiểu điện thoại</option>
+                                <option value="Thẳng" @thang>Thẳng</option>
+                                <option value="Gập" @gap>Gập</option>
+                                <option value="Trượt" @truot>Trượt</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Màn hình hiển thị</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="screen" name="screen" value="@screen" placeholder="Màn hình hiển thị">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Camera</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="camera" name="camera" value="@camera" placeholder="Camera">
+                        </div>
+                    </div>
+                </div>
+                @{ 
+                    string m_2GB = "";
+                    string m_4GB = "";
+                    string m_8GB = "";
+                    string m_16GB = "";
+                    string m_32GB = "";
+                    string m_64GB = "";
+                    string m_128GB = "";
+                }
+
+                @if (memory != "")
+                {
+                    switch (memory)
+                    {
+                        case "2 GB":
+                            m_2GB = "selected";
+                            break;
+                        case "4 GB":
+                            m_4GB = "selected";
+                            break;
+                        case "8 GB":
+                            m_8GB = "selected";
+                            break;
+                        case "16 GB":
+                            m_16GB = "selected";
+                            break;
+                        case "32 GB":
+                            m_32GB = "selected";
+                            break;
+                        case "64 GB":
+                            m_64GB = "selected";
+                            break;
+                        case "128 GB":
+                            m_128GB = "selected";
+                            break;                    
+                    }
+                }
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Bộ nhớ trong</h4></div>
+                    <div class="field">
+                        <div class="span6 no-search">
+                            <select class="span3 chosen" id="memory" name="memory" required>
+                                <option value="">Chọn dung lượng bộ nhớ trong</option>
+                                <option value="2 GB" @m_2GB >2 GB</option>
+                                <option value="4 GB" @m_4GB>4 GB</option>
+                                <option value="8 GB" @m_8GB>8 GB</option>
+                                <option value="16 GB" @m_16GB>16 GB</option>
+                                <option value="32 GB" @m_32GB>32 GB</option>
+                                <option value="64 GB" @m_64GB>64 GB</option>
+                                <option value="128 GB" @m_128GB>128 GB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Hệ điểu hành</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="os" name="os" value="@os" placeholder="Hệ điều hành">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Vi xử lý</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="process" name="process" value="@chipset" placeholder="Vi xử lý">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        @if (content == "tablet")
+        {
+            string screen = "";
+            string gpu = "";
+            string ram = "";
+            string memory = "";
+            string camera = "";
+            string connect = "";
+            if(tablet != null)
+            {
+                screen = tablet.screen;
+                gpu = tablet.gpu;
+                ram = tablet.ram;
+                memory = tablet.memory;
+                camera = tablet.camera;
+                connect = tablet.connect;
+            }
+            <div class="widgets_area">
+                <div class="form-control control-group">
+                    <div class="span12"><h3>@CONFIG.DETAIL_INFORMATION</h3></div>
+                </div>
+                <div class="widgets_area">
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Màn hình hiển thị</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="screen" name="screen" value="@screen" placeholder="Màn hình hiển thị">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>GPU</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="gpu" name="gpu" value="@gpu" placeholder="GPU">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Camera</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="camera" name="camera" value="@camera" placeholder="Camera">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>RAM</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="ram" name="ram" value="@ram" placeholder="RAM">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Kết nối</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="connect" name="connect" value="@connect" placeholder="Kết nối">
+                        </div>
+                    </div>
+                </div>
+
+                @{
+                    string m_2GB = "";
+                    string m_4GB = "";
+                    string m_8GB = "";
+                    string m_16GB = "";
+                    string m_32GB = "";
+                    string m_64GB = "";
+                    string m_128GB = "";
+                }
+
+                @if (memory != "")
+                {
+                    switch (memory)
+                    {
+                        case "2 GB":
+                            m_2GB = "selected";
+                            break;
+                        case "4 GB":
+                            m_4GB = "selected";
+                            break;
+                        case "8 GB":
+                            m_8GB = "selected";
+                            break;
+                        case "16 GB":
+                            m_16GB = "selected";
+                            break;
+                        case "32 GB":
+                            m_32GB = "selected";
+                            break;
+                        case "64 GB":
+                            m_64GB = "selected";
+                            break;
+                        case "128 GB":
+                            m_128GB = "selected";
+                            break;
+                    }
+                }
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Bộ nhớ trong</h4></div>
+                    <div class="field">
+                        <div class="span6 no-search">
+                            <select class="span3 chosen" id="memory" name="memory" required>
+                                <option value="">Chọn dung lượng bộ nhớ trong</option>
+                                <option value="2 GB" @m_2GB>2 GB</option>
+                                <option value="4 GB" @m_4GB>4 GB</option>
+                                <option value="8 GB" @m_8GB>8 GB</option>
+                                <option value="16 GB" @m_16GB>16 GB</option>
+                                <option value="32 GB" @m_32GB>32 GB</option>
+                                <option value="64 GB" @m_64GB>64 GB</option>
+                                <option value="128 GB" @m_128GB>128 GB</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+        @if (content == "laptop" || content == "desktop")
+        {
+            string processor = "";
+            string ram = "";
+            string gpu = "";
+            string hardDisk = "";
+            string screen = "";
+            string os = "";
+            string connect = "";
+            string pin = "";
+            if(laptop != null || desktop != null)
+            {
+                processor = (laptop != null) ? laptop.processor : desktop.processor;
+                ram = (laptop != null) ? laptop.ram : desktop.ram;
+                gpu = (laptop != null) ? laptop.gpu : desktop.gpu;
+                hardDisk = (laptop != null) ? laptop.hardDisk : desktop.hardDisk;
+                screen = (laptop != null) ? laptop.screen : desktop.screen;
+                os = (laptop != null) ? laptop.os : desktop.os;
+                connect = (laptop != null) ? laptop.connect : desktop.connect;
+                pin = (laptop != null) ? laptop.pin : laptop.pin;
+            }
+            <div class="widgets_area">
+                <div class="form-control control-group">
+                    <div class="span12"><h3>@CONFIG.DETAIL_INFORMATION</h3></div>
+                </div>
+                <div class="widgets_area">
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Màn hình hiển thị</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="screen" name="screen" value="@screen">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>GPU</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="gpu" name="gpu" value="@gpu">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Ổ cứng</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="hardDisk" name="hardDisk" value="@hardDisk">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>RAM</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="ram" name="ram" value="@ram">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Kết nối</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="connect" name="connect" value="@connect">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Chipset</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="processor" name="processor" value="@processor">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Hệ điều hành</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="os" name="os" value="@os">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Pin</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="pin" name="pin" value="@pin">
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        }
+
+        @if (content == "accessories")
+        {
+            string manu = "";
+            string detail = "";
+            if(accessory != null)
+            {
+                manu = accessory.manufacturer;
+                detail = accessory.color;
+            }
+            <div class="widgets_area">
+                <div class="form-control control-group">
+                    <div class="span12"><h3>@CONFIG.DETAIL_INFORMATION</h3></div>
+                </div>
+                <div class="widgets_area">
+                </div>
+
+                <div class="form_row control-group">
+                    <div class="span2"><h4>Chi tiết</h4></div>
+                    <div class="field">
+                        <div class="span3">
+                            <input class="span3" type="text" required id="color" name="color" value="@detail">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+
+        <div class="widgets_area">
+            <div class="row-fluid align_center">
+                <input type="submit" class="blue btn btn-xlarge" value="Hooàn thành chỉnh sửa" id="submitAddAccount">
+                <a href="@Url.Action("ViewProduct", "Admin", new {content = content })" class="blue btn btn-xlarge">Trở về</a>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+
+
+

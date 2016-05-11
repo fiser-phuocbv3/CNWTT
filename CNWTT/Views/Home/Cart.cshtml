@@ -1,0 +1,148 @@
+﻿@using CNWTT.Models.DO;
+@using CNWTT.App_Start;
+
+@{
+    Layout          = "~/Views/Shared/User.cshtml";
+    ViewBag.Title   = "Cart";
+
+    IList<product> listInCart   = null;
+    IList<Cart>    list         = null;
+    IList<product> listNew      = null;
+
+    listInCart  = ViewBag.listInCart;
+    listNew     = ViewBag.listNew;
+    list        = (IList<Cart>) @Session[CONFIG.CART];
+}
+
+@section menu{
+ <div class="header_slide">
+     <!--
+    <div class="header_bottom_left ">
+        <div class="categories">
+            <ul>
+                <h3>@CONFIG.PRODUCT_CONTENT</h3>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "all"})">@CONFIG.PRODUCT_CONTENT_ALL</a></li>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "mobile" })">@CONFIG.PRODUCT_CONTENT_MOBILE</a></li>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "tablet"})">@CONFIG.PRODUCT_CONTENT_TABLET</a></li>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "laptop"})">@CONFIG.PRODUCT_CONTENT_LAPTOP</a></li>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "desktop"})">@CONFIG.PRODUCT_CONTENT_DESKTOP</a></li>
+                <li><a href="@Url.Action("productDetail", "Home", new { p = "accessories"})">@CONFIG.PRODUCT_CONTENT_ACCESSORY</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="header_bottom_right">
+         -->
+
+        <div class="content_top">
+            <div class="heading">
+                <h5><a href="@Url.Action("Index","Home")">Trang chủ</a> / <a href="@Url.Action("Cart","Home")">Giỏ hàng</a></h5>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="header_slide">
+            <div class="categories">
+                <ul>
+                    <h3>Giỏ hàng</h3>
+                </ul> 
+                <!--<form action="#" method="post">-->
+                <div style="padding: 10px">
+                    <table cellpadding="5" bordercolor="#CCCCCC" style="border-collapse:collapse; width:100%; ">
+                        <tbody>
+                            <tr bgcolor="#eee" style="color:#333; font-size:15px;height: 30px; padding: 10px">
+                                <td style="padding: 10px">STT</td>
+                                <td>Tên sản phẩm</td>
+                                <td>Giá sản phẩm</td>
+                                <td>Số lượng</td>
+                                <td>Tổng</td>
+                                <td>Xóa</td>
+                            </tr>
+                            @if (listInCart != null && list != null)
+                            {
+                                int i = 1;
+                                int count = 0;
+                                int sum = 0;
+                                foreach (var c in listInCart)
+                                {
+                                    <tr style="color:#333; font-size:15px;">
+                                        <td style="padding: 10px;">@(i++)</td>
+                                        <td>@c.name</td>
+                                        <td>@c.cost @CONFIG.CURRENT</td>
+                                        @foreach(var l in list)
+                                        {
+                                            if(Int32.Parse(l.id) == c.id)
+                                            {
+                                                count = Int32.Parse(l.count);
+                                                sum = count * Int32.Parse(c.cost);
+                                            }
+                                        }
+                                        <td>
+                                            <select onchange="" id="changeCountInCart">
+                                                @for(int index = 0; index < 10; index++)
+                                                {
+                                                    string selected = (index == count) ? "selected" : "";
+                                                    <option value="@index" @selected>@index</option>
+                                                }
+                                            </select>
+                                        </td>
+                                        <td>@sum @CONFIG.CURRENT</td>
+                                        <td>
+                                            <div style="padding-top: 10px">
+                                                <a href="@Url.Action("DeleteCart","Home",new {idCart = c.id})"><img src="~/User/images/delete.PNG"></a>                                     
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            }                          
+                        </tbody>
+                    </table>
+                    <div style="text-align: right">
+                        <span class="button"><a href="@Url.Action("Index","Home")">Mua tiếp</a></span>
+                        <span class="button"><a href="@Url.Action("putProduct","Home")">Đăt hàng</a></span>
+                        <!--<span class="button" style="margin-left: 20px">Đặt hàng</span>
+                        <span><a href=""><input type="submit" class="button" value="Đặt hàng" style="color:mediumpurple"></a></span>
+                       -->
+                    </div>
+                </div>
+                <!--</form>-->
+            </div>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+ <!--</div>   --> 
+}
+
+<div class="content">
+    <div class="content_top">
+        <div class="heading">
+            <h3>Sản phẩm mới</h3>
+        </div>
+        <div class="see">
+            <p><a href="@Url.Action("ViewProduct","Home",new {type = "all" })">Hiển thị tất cả sản phẩm</a></p>
+        </div>
+        <div class="clear"></div>
+    </div>
+    <div class="section group">
+        @if (listNew != null)
+        {
+            foreach (var l in listNew)
+            {
+                string[] pic = l.picture.Trim().Split('|');
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="@Url.Action("Preview","Home", new {p = l.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                    <h2><a href="@Url.Action("Preview","Home", new {p = l.id})">@l.name</a></h2>
+                    <div class="price-details">
+                        <div class="price-number">
+                            <p><span class="rupees">@l.cost @CONFIG.CURRENT</span></p>
+                        </div>
+                        <div class="add-cart">
+                            <h4><a href="@Url.Action("AddCart","Home",new {id = l.id })">Thêm vào giỏ</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</div>
+

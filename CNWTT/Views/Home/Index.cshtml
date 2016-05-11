@@ -1,0 +1,258 @@
+﻿@using CNWTT.App_Start;
+
+@{
+    Layout          = "~/Views/Shared/User.cshtml";
+    ViewBag.Title   = "Home";
+
+    List<product> listNew       = null;
+    List<product> listPhone     = null;
+    List<product> listTablet    = null;
+    List<product> listLaptop    = null;
+    List<product> listDesktop   = null;
+    List<product> listAccessory = null;
+
+    listNew         = ViewBag.newProducts;
+    listPhone       = ViewBag.phoneProduct;
+    listTablet      = ViewBag.tabletProduct;
+    listLaptop      = ViewBag.laptopProduct;
+    listDesktop     = ViewBag.desktopProduct;
+    listAccessory   = ViewBag.accessoryProduct;
+}
+
+@section menu{
+    @RenderPage("~/Views/Home/MainMenu.cshtml")
+}
+
+<!--new product-->
+<div class="content_top">
+    <div class="heading">
+        <h3>Sản phẩm mới</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("ViewProduct","Home", new {type = "all" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    @if (listNew != null && listNew.Count > 0)
+    {
+        foreach (var p in listNew)
+        {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name</a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home",new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">
+            <h3>Không có sản phẩm</h3>
+        </div>
+    }
+</div>
+
+<!--phone-->
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Mobile</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("ViewProduct","Home",new {type = "mobile" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    @if (listPhone != null && listPhone.Count > 0)
+    {
+        foreach (var p in listPhone)
+        {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name </a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home",new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">
+            <h3>Không có sản phẩm</h3>
+        </div>
+    }
+</div>
+
+<!--tablet-->
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Tablet</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("Viewproduct","Home",new {type = "tablet" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    @if (listTablet != null && listTablet. Count > 0)
+    {
+        foreach (var p in listTablet)
+        {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt=""/></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name</a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home", new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">
+            <h3>Không có sản phẩm</h3>
+        </div>
+    }
+</div>
+
+<!--laptop-->
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Laptop</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("ViewProduct","Home",new {type = "laptop" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    @if (listLaptop != null && listLaptop.Count > 0) {
+        foreach (var p in listLaptop) {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name</a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home",new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">
+            <h3>Không có sản phẩm</h3>
+        </div>
+    }
+</div>
+
+<!---desktop-->
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Desktop</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("ViewProduct","Home",new {type = "desktop" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    @if (listDesktop != null && listDesktop.Count > 0)
+    {
+        foreach (var p in listDesktop)
+        {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name</a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home",new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">           
+            <h3>Không có sản phẩm</h3>      
+        </div>
+    }
+</div>
+
+<!--phu kien-->
+<div class="content_bottom">
+    <div class="heading">
+        <h3>Phụ kiện</h3>
+    </div>
+    <div class="see">
+        <p><a href="@Url.Action("ViewProduct","Home",new {type = "accessories" })">Hiển thị tất cả sản phẩm</a></p>
+    </div>
+    <div class="clear"></div>
+</div>
+
+<div class="section group">
+    @if (listAccessory != null && listAccessory.Count > 0)
+    {
+        foreach (var p in listAccessory)
+        {
+            string[] pic = p.picture.Trim().Split('|');
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="@Url.Action("Preview","Home", new {p = p.id})"><img src="~/img/@pic[0]" alt="" /></a>
+                <h2><a href="@Url.Action("Preview","Home", new {p = p.id})">@p.name</a></h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p><span class="rupees">@p.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4><a href="@Url.Action("AddCart","Home",new {id = p.id })">Thêm vào giỏ</a></h4>
+                    </div>
+                    <div class="clear"></div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="content_bottom">
+            <h3>Không có sản phẩm</h3>
+        </div>
+    }
+</div>
+           

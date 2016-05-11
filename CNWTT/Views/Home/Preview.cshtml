@@ -1,0 +1,547 @@
+﻿@using CNWTT.App_Start;
+@using CNWTT.Models.DO;
+
+
+@{
+    Layout = "~/Views/Shared/User.cshtml";
+    ViewBag.Title = "Preview";
+
+
+    product prod        = null;
+    phone ph            = null;
+    tablet tab          = null;
+    laptop lap          = null;
+    desktop desk        = null;
+    accessory acc       = null;
+    Manufacturer manu   = null;
+    account account     = null;
+    IList<news> listN   = null;
+    IList<product> list = null;
+    string[] pic = null;
+
+    account = (account)Session[CONFIG.SESSION_USER];
+    listN = (List<news>)ViewBag.news;
+    prod = (product)ViewBag.product;
+    manu = (Manufacturer)ViewBag.manufacturer;
+    list = (IList<product>)ViewBag.list;
+}
+
+@{ 
+    var p = Request["p"];
+    if (prod != null)
+    {
+        pic = prod.picture.Trim().Split('|');
+        switch (prod.productType)
+        {
+            case "1":
+                ph = (phone)ViewBag.productDetail;
+                break;
+            case "2":
+                tab = (tablet)ViewBag.productDetail;
+                break;
+            case "3":
+                lap = (laptop)ViewBag.productDetail;
+                break;
+            case "4":
+                desk = (desktop)ViewBag.productDetail;
+                break;
+            case "5":
+                acc = (accessory)ViewBag.productDetail;
+                break;
+        }
+    }
+}
+
+@section menu{
+
+}
+
+<div class="content_top">
+    <div class="heading">
+        <h4><a href="@Url.Action("Index","Home")">Home</a> / <a href="@Url.Action("Preview","Home", new {p = @p })">Preview</a></h4>
+    </div>
+    <div class="clear"></div>
+</div>
+<div class="section group">
+    <div class="cont-desc span_1_of_2">
+        <div class="product-details">
+            <div class="grid images_3_of_2">
+                <div id="container">
+                    <div id="products_example">
+                        <div id="products" class="span_2_of_2">
+                            <div class="slides_container">
+                                @if (pic != null)
+                                {
+                                    foreach (string src in pic)
+                                    {
+                                        if (src != "")
+                                        {
+                                            <a href="javascript:void(0)" target="_blank"><img src="~/img/@src" /></a>
+                                        }
+
+                                    }
+                                }                              
+                            </div>
+                            <ul class="pagination">
+                                @if (pic != null)
+                                {
+                                    foreach (string src in pic)
+                                    {
+                                        if (src != "")
+                                        {
+                                            <li><a href="javascript:void(0)"><img src="~/img/@src" /></a></li>
+                                        }
+                                    }
+                                }          
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @if (prod != null)
+            {
+                <div class="desc span_3_of_2">
+                    <h2>@prod.name</h2> 
+                    <p>Ngày đăng @prod.describle</p>              
+                    <div class="price">
+                        <p><h2>Giá:</h2> <span>@prod.cost @CONFIG.CURRENT</span></p>
+                    </div>
+                    
+                    <div class="available">
+                        <!--
+                        <p>Tùy chọn có sẵn:</p>
+                        <ul>
+                            <li>
+                                Mầu
+                                <select>
+                                    <option>Đen</option>
+                                    <option>Trắng</option>
+                                </select>
+                            </li>
+                       
+                        </ul>
+                            -->
+                    </div>
+                        
+                    <div class="share-desc">
+                        <div class="share">
+                            <p>Chia sẻ sản phẩm:</p>
+                            <ul>
+                                <li><a href="#"><img src="~/User/images/facebook.png" alt="" /></a></li>
+                                <li><a href="#"><img src="~/User/images/twitter.png" alt="" /></a></li>
+                            </ul>
+                        </div>
+                        <div class="button"><span><a href="@Url.Action("AddCart", "Home", new { id = @p })">Thêm vào giỏ</a></span></div>
+                        <div class="clear"></div>
+                    </div>               
+                    <div class="under-line">
+                    </div>              
+                </div>
+                <div class="clear"></div>
+            }
+        </div>
+        <div class="product_desc">
+            <div id="horizontalTab">
+                <ul class="resp-tabs-list">
+                    <li>Thông tin chi tiết</li>
+                    @if (account != null)
+                    {
+                        <li>Phản hồi</li>
+                    }                 
+                    <div class="clear"></div>
+                </ul>
+                <div class="resp-tabs-container">
+                    <div class="product-desc">
+                            <div class="span_3_of_2">   
+                                <div class="contact-form">    
+                                    <h2>Thông tin chi tiết</h2>  
+                                                                
+                                    <ul>
+                                        <li>
+                                            <div>
+                                                <label>@CONFIG.MANUFACTURER</label>
+                                                @if (manu != null)
+                                                {
+                                                    <span style="display:table-cell">@manu.name</span>
+                                                }                                              
+                                            </div>
+                                        </li>
+                                        @if (prod != null)
+                                        {
+                                            switch (prod.productType)
+                                            {
+                                                case "1":
+                                                    if (ph != null)
+                                                    {
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_PHONETYPE</label>
+                                                                <span style="display:table-cell">@ph.phoneType</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_SCREEN</label>
+                                                                <span style="display:table-cell">@ph.screen</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_CAMERA</label>
+                                                                <span style="display:table-cell">@ph.camera</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_CHIPSET</label>
+                                                                <span style="display:table-cell">@ph.chipset</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_MEMORY</label>
+                                                                <span style="display:table-cell">@ph.memory</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.PHONE_OS</label>
+                                                                <span style="display:table-cell">@ph.os</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    break;
+                                                case "2":
+                                                    if (tab != null)
+                                                    {
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_SCREEN</label>
+                                                                <span style="display:table-cell">@tab.screen</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_GPU</label>
+                                                                <span style="display:table-cell">@tab.gpu</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_RAM</label>
+                                                                <span style="display:table-cell">@tab.ram</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_MEMORY</label>
+                                                                <span style="display:table-cell">@tab.memory</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_CAMERA</label>
+                                                                <span style="display:table-cell">@tab.camera</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_CONNECT</label>
+                                                                <span style="display:table-cell">@tab.connect</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    break;
+                                                case "3":
+                                                    if (lap != null)
+                                                    {
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_PROCESSOR</label>
+                                                                <span style="display:table-cell">@lap.processor</span>
+                                                            </div>
+                                                        </li>
+
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_RAM</label>
+                                                                <span style="display:table-cell">@lap.ram</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_GPU</label>
+                                                                <span style="display:table-cell">@lap.gpu</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_HARDDISK</label>
+                                                                <span style="display:table-cell">@lap.hardDisk</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_SCREEN</label>
+                                                                <span style="display:table-cell">@lap.screen</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_OS</label>
+                                                                <span style="display:table-cell">@lap.os</span>
+                                                            </div>
+
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_CONNECT</label>
+                                                                <span style="display:table-cell">@lap.connect</span>
+                                                            </div>
+
+                                                        </li>                                        
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.LAPTOP_PIN</label>
+                                                                <span style="display:table-cell">@lap.pin</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    break;
+                                                case "4":
+                                                    if (tab != null)
+                                                    {
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_SCREEN</label>
+                                                                <span style="display:table-cell">@tab.screen</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_GPU</label>
+                                                                <span style="display:table-cell">@tab.gpu</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_RAM</label>
+                                                                <span style="display:table-cell">@tab.ram</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_MEMORY</label>
+                                                                <span style="display:table-cell">@tab.memory</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_CAMERA</label>
+                                                                <span style="display:table-cell">@tab.camera</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.TABLET_CONNECT</label>
+                                                                <span style="display:table-cell">@tab.connect</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    break;
+                                                case "5":
+                                                    if (acc != null)
+                                                    {
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.ACCESSORY_MANUFACTURER</label>
+                                                                <span style="display:table-cell">@acc.manufacturer</span>
+                                                            </div>
+                                                        </li>
+                                                        <li>
+                                                            <div>
+                                                                <label>@CONFIG.ACCESSORY_COLOR</label>
+                                                                <span style="display:table-cell">@acc.color</span>
+                                                            </div>
+                                                        </li>
+                                                    }
+                                                    break;
+                                            }
+                                        }
+                                      </ul>
+                                </div>
+                            </div>
+                    </div>
+                    
+                    <!--
+                    <div class="product-tags">
+                        <p>
+                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+                            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+                            unknown printer took a galley of type and scrambled it to make a type specimen
+                            book. It has survived not only five centuries, but also the leap into electronic
+                            typesetting, remaining essentially unchanged.
+                        </p>
+                        <h4>Add Your Tags:</h4>
+                        <div class="input-box">
+                            <input type="text" value="">
+                        </div>
+                        <div class="button"><span><a href="#">Add Tags</a></span></div>
+                    </div>
+-->
+                    @if (account != null)
+                    {
+                        <div class="review">
+
+                            <div class="your-review">
+                                <h3>Ý kiến đánh giá của bạn</h3>
+
+                                <form>
+                                    <div>
+                                        <!--<span><label>Nội dung ý kiến<span class="red"></span></label></span>-->
+                                        <span><textarea placeholder="Nội dung ý kiến" required></textarea></span>
+                                    </div>
+                                    <div>
+                                        <span><input type="submit" value="Đánh giá"></span>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+                        $(document).ready(function () {
+                            $('#horizontalTab').easyResponsiveTabs({
+                                type: 'default', //Types: default, vertical, accordion
+                                width: 'auto', //auto or any width like 600px
+                                fit: true   // 100% fit in a container
+                            });
+                        });
+        </script>
+        <div class="content_bottom">
+            <div class="heading">
+                <h3>Sản phẩm tương tự</h3>
+            </div>
+            <!--
+            <div class="see">
+                <p><a href="">Hiển thị tất cả</a></p>
+            </div>
+                -->
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            @if (list != null)
+            {
+                foreach (var l in list)
+                {
+                    string[] picture = l.picture.Trim().Split('|');
+                    <div class="grid_1_of_4 images_1_of_4">
+                        <a href="@Url.Action("Preview","Home",new {p = l.id})"><img src="~/img/@picture[0]" alt=""></a>
+                        <h2><a href="@Url.Action("Preview","Home",new {p = l.id})">@l.name</a></h2>
+                        <div class="price-details">
+                            <div class="price-number">
+                                <p><span class="rupees">@l.cost @CONFIG.CURRENT</span></p>
+                            </div>
+                            <div class="add-cart">
+                                <h4><a href="@Url.Action("AddCart","Home",new {id = l.id })">Thêm vào giỏ</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+    <div class="rightsidebar span_3_of_1">
+        <div class="contact-form">
+            <h2>@CONFIG.PRODUCT_CONTENT</h2>
+            <ul>             
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "all"})">@CONFIG.PRODUCT_CONTENT_ALL</a></li>
+                
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "mobile" })">@CONFIG.PRODUCT_CONTENT_MOBILE</a></li>
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "tablet"})">@CONFIG.PRODUCT_CONTENT_TABLET</a></li>
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "laptop"})">@CONFIG.PRODUCT_CONTENT_LAPTOP</a></li>
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "desktop"})">@CONFIG.PRODUCT_CONTENT_DESKTOP</a></li>
+                <li><a href="@Url.Action("ViewProduct", "Home", new { type = "accessories"})">@CONFIG.PRODUCT_CONTENT_ACCESSORY</a></li>
+            </ul>
+        </div>
+        <div class="subscribe">
+        </div>
+
+        <div class="community-poll">
+            <h2>Community POll</h2>
+            <p>What is the main reason for you to purchase products online?</p>
+            <div class="poll">
+                <form>
+                    <ul>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="1">
+                            <span class="label"><label>More convenient shipping and delivery </label></span>
+                        </li>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="2">
+                            <span class="label"><label for="vote_2">Lower price</label></span>
+                        </li>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="3">
+                            <span class="label"><label for="vote_3">Bigger choice</label></span>
+                        </li>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="5">
+                            <span class="label"><label for="vote_5">Payments security </label></span>
+                        </li>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="6">
+                            <span class="label">
+                                <label for="vote_6">
+                                    30-day Money Back
+                                    Guarantee
+                                </label>
+                            </span>
+                        </li>
+                        <li>
+                            <input type="radio" name="vote" class="radio" value="7">
+                            <span class="label"><label for="vote_7">Other.</label></span>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </div>
+
+        <div class="subscribe">
+        </div>
+
+        <div class="contact-form">
+            <h2>Tin mới</h2>
+            <ul>
+                @if (listN != null)
+                {
+                    foreach (var n in listN)
+                    {
+                        <li><a href="@Url.Action("Abc","Home",new {idN = n.id})">@n.title</a></li>
+                    }
+                }
+            </ul>
+        </div>
+
+
+        <div class="subscribe">
+        </div>
+
+        <div class="contact-form">
+            <h2>Bản đồ</h2>
+            <div id="sample" style="height: 200px">
+            </div>
+        </div>
+
+        <div class="">
+
+        </div>
+    </div>
+</div>
+
+
+

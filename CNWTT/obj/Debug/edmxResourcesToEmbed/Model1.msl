@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="cnwttModelStoreContainer" CdmEntityContainer="cnwttEntities">
+    <EntitySetMapping Name="accessories">
+      <EntityTypeMapping TypeName="cnwttModel.accessory">
+        <MappingFragment StoreEntitySet="accessories">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="manufacturer" ColumnName="manufacturer" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accounts">
+      <EntityTypeMapping TypeName="cnwttModel.account">
+        <MappingFragment StoreEntitySet="account">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="accountType" ColumnName="accountType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="accountInfors">
+      <EntityTypeMapping TypeName="cnwttModel.accountInfor">
+        <MappingFragment StoreEntitySet="accountInfor">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="identify" ColumnName="identify" />
+          <ScalarProperty Name="phone" ColumnName="phone" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="account_id" ColumnName="account_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="bills">
+      <EntityTypeMapping TypeName="cnwttModel.bill">
+        <MappingFragment StoreEntitySet="bill">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="totalMoney" ColumnName="totalMoney" />
+          <ScalarProperty Name="accountAddress" ColumnName="accountAddress" />
+          <ScalarProperty Name="create_at" ColumnName="create_at" />
+          <ScalarProperty Name="update_at" ColumnName="update_at" />
+          <ScalarProperty Name="account_id" ColumnName="account_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="billDetails">
+      <EntityTypeMapping TypeName="cnwttModel.billDetail">
+        <MappingFragment StoreEntitySet="billDetail">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="money" ColumnName="money" />
+          <ScalarProperty Name="accept" ColumnName="accept" />
+          <ScalarProperty Name="bill_id" ColumnName="bill_id" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="desktops">
+      <EntityTypeMapping TypeName="cnwttModel.desktop">
+        <MappingFragment StoreEntitySet="desktop">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="processor" ColumnName="processor" />
+          <ScalarProperty Name="ram" ColumnName="ram" />
+          <ScalarProperty Name="gpu" ColumnName="gpu" />
+          <ScalarProperty Name="hardDisk" ColumnName="hardDisk" />
+          <ScalarProperty Name="screen" ColumnName="screen" />
+          <ScalarProperty Name="os" ColumnName="os" />
+          <ScalarProperty Name="connect" ColumnName="connect" />
+          <ScalarProperty Name="pin" ColumnName="pin" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="feedbacks">
+      <EntityTypeMapping TypeName="cnwttModel.feedback">
+        <MappingFragment StoreEntitySet="feedback">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="account_id" ColumnName="account_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="laptops">
+      <EntityTypeMapping TypeName="cnwttModel.laptop">
+        <MappingFragment StoreEntitySet="laptop">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="processor" ColumnName="processor" />
+          <ScalarProperty Name="ram" ColumnName="ram" />
+          <ScalarProperty Name="gpu" ColumnName="gpu" />
+          <ScalarProperty Name="hardDisk" ColumnName="hardDisk" />
+          <ScalarProperty Name="screen" ColumnName="screen" />
+          <ScalarProperty Name="os" ColumnName="os" />
+          <ScalarProperty Name="connect" ColumnName="connect" />
+          <ScalarProperty Name="pin" ColumnName="pin" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="manufacturers">
+      <EntityTypeMapping TypeName="cnwttModel.manufacturer">
+        <MappingFragment StoreEntitySet="manufacturer">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="news">
+      <EntityTypeMapping TypeName="cnwttModel.news">
+        <MappingFragment StoreEntitySet="news">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="content" ColumnName="content" />
+          <ScalarProperty Name="describe" ColumnName="describe" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="phones">
+      <EntityTypeMapping TypeName="cnwttModel.phone">
+        <MappingFragment StoreEntitySet="phone">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="phoneType" ColumnName="phoneType" />
+          <ScalarProperty Name="screen" ColumnName="screen" />
+          <ScalarProperty Name="camera" ColumnName="camera" />
+          <ScalarProperty Name="memory" ColumnName="memory" />
+          <ScalarProperty Name="os" ColumnName="os" />
+          <ScalarProperty Name="chipset" ColumnName="chipset" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="products">
+      <EntityTypeMapping TypeName="cnwttModel.product">
+        <MappingFragment StoreEntitySet="product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="cost" ColumnName="cost" />
+          <ScalarProperty Name="picture" ColumnName="picture" />
+          <ScalarProperty Name="number" ColumnName="number" />
+          <ScalarProperty Name="describle" ColumnName="describle" />
+          <ScalarProperty Name="productType" ColumnName="productType" />
+          <ScalarProperty Name="manufacturer_id" ColumnName="manufacturer_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="cnwttModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tablets">
+      <EntityTypeMapping TypeName="cnwttModel.tablet">
+        <MappingFragment StoreEntitySet="tablet">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="screen" ColumnName="screen" />
+          <ScalarProperty Name="gpu" ColumnName="gpu" />
+          <ScalarProperty Name="ram" ColumnName="ram" />
+          <ScalarProperty Name="memory" ColumnName="memory" />
+          <ScalarProperty Name="camera" ColumnName="camera" />
+          <ScalarProperty Name="connect" ColumnName="connect" />
+          <ScalarProperty Name="product_id" ColumnName="product_id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

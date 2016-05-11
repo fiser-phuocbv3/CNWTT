@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8833cf4ba00c44f59cae48da22a127ff" Name="Diagram1" ZoomLevel="20">
+        <EntityTypeShape EntityType="cnwttModel.accessory" Width="1.5" PointX="5.25" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.account" Width="1.5" PointX="3.75" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.accountInfor" Width="1.5" PointX="6" PointY="25.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.bill" Width="1.5" PointX="6" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.billDetail" Width="1.5" PointX="8.25" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.desktop" Width="1.5" PointX="5.25" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.feedback" Width="1.5" PointX="6" PointY="8" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.laptop" Width="1.5" PointX="5.25" PointY="14.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.manufacturer" Width="1.5" PointX="0.75" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.news" Width="1.5" PointX="0.75" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.phone" Width="1.5" PointX="5.25" PointY="18.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.product" Width="1.5" PointX="3" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.sysdiagram" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="cnwttModel.tablet" Width="1.5" PointX="5.25" PointY="22" IsExpanded="true" />
+        <AssociationConnector Association="cnwttModel.FK__accessori__produ__5535A963" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__accountIn__accou__412EB0B6" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__bill__account_id__46E78A0C" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__feedback__accoun__440B1D61" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__billDetai__bill___4E88ABD4" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__billDetai__produ__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__desktop__product__5DCAEF64" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__laptop__product___5AEE82B9" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__product__manufac__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__phone__product_i__5812160E" ManuallyRouted="false" />
+        <AssociationConnector Association="cnwttModel.FK__tablet__product___52593CB8" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

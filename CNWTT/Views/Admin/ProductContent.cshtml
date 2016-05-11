@@ -1,0 +1,229 @@
+﻿@using CNWTT.App_Start;
+@using CNWTT.Models.DO;
+
+@{
+    Layout = "~/Views/Shared/Admin.cshtml";
+    ViewBag.Title = "ProductContent";
+
+    IList<manufacturer> listManufacturer = null;
+    IList<Product> listProduct = null;
+    string content = null;
+}
+
+@{ 
+    listManufacturer = ViewBag.listManufacturer;
+    listProduct = ViewBag.listProduct;
+    content = Request["content"];
+
+
+}
+
+<div class="widgets_area">
+    <div class="row-fluid align_center">
+        <h2 style="font-weight:bold">
+            @if(content != null)
+            {
+                switch (content)
+                {
+                    case "mobile":
+                        <span>Quản lý điện thoại</span>
+                        break;
+                    case "tablet":
+                        <span>Quản lý máy tính bảng</span>
+                        break;
+                    case "laptop":
+                        <span>Quản lý máy tính xách tay</span>
+                        break;
+                    case "desktop":
+                        <span>Quản lý máy tính để bàn</span>
+                        break;
+                    case "accessories":
+                        <span>Quản lý phụ kiện</span>
+                        break;
+                }
+            }
+        </h2>
+    </div>
+
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="quick-actions">
+                <ul>
+                    <li class="align_right"><a href="@Url.Action("AddProduct", "Admin",new { content = content})"><i class="icon-plus"></i></a></li>
+                    <li><h3>Thêm sản phẩm mới</h3></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+   <!--
+
+    <div class="widgets_area">
+        <div class="row-fluid">
+            <div class="span2"><h4>Từ</h4></div>
+            <div class="span3">
+                <div class="field">
+                    <div class="input-append date" id="dp2" data-date="" data-date-format="dd-mm-yyyy">
+                        <input size="16" type="text" readonly class="startDay" id="startDay">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="span2"><h4>Đến</h4></div>
+            <div class="span4">
+                <div class="field">
+                    <div class="input-append date" id="dpYears" data-date="" data-date-format="dd-mm-yyyy">
+                        <input size="16" type="text" readonly class="endDay" id="endDay">
+                        <span class="add-on"><i class="icon-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="span2" id="messageDate" style="display:none">
+                <h4 style="color:red">Ngày không đúng</h4>
+            </div>  
+        </div>
+    </div>/Admin/ViewProduct?content=@content
+       -->
+    <script>
+
+        
+    </script>
+    <!--<form name="formViewProduct" action="@Url.Action("ViewProduct","Admin",new { content = content })" method="post" onsubmit="return (validate());">-->
+        <form name="formViewProduct" action="@Url.Action("ViewProduct","Admin",new { content = content })" method="post" onsubmit="return (validate());">
+            <div class="widgets_area">
+                <div class="row-fluid">
+                    <div class="span2"><h4>@CONFIG.ACCESSORY_MANUFACTURER</h4></div>
+                    <div>
+                        <div class="field">
+                            <div class="span4 no-search"> 
+                                <select class="selectManufacturer chosen" name="selectManufacturer" id="selectManufacturer">
+                                    <option value="">Chọn hãng sản xuất</option>
+                                    @if (listManufacturer != null)
+                                    {
+                                        foreach (var i in listManufacturer)
+                                        {
+                                            <option value="@i.id">@i.name</option>
+                                        }
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="span2"><h4>@CONFIG.PRICE</h4></div>
+                    <div>
+                        <div class="field">
+                            <div class="span4 no-search">
+                                <select class="selectPrice chosen" name="selectPrice" id="selectPrice">
+                                    <option value="">Chọn giá</option>
+                                    <option value="1">Dưới 5 triệu</option>
+                                    <option value="2">Từ 5 đến 10 triệu</option>
+                                    <option value="3">Từ 10 đến 20 triệu</option>
+                                    <option value="4">Trên 20 triệu</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="widgets_area">
+                <div class="row-fluid align_center">
+                    <input type="submit" value="Xem chi tiết" class="btn btn-xlarge blue" id="btnMobileDetailView">
+                    <!--<a href="@Url.Action("ViewProduct", "Admin")" class="btn btn-xlarge blue">dasa</a>-->
+                </div>
+
+            </div>
+        </form>
+    
+    <div class="widgets_area">
+
+        <div class="row-fluid">
+            <div class="span12">
+                <div class="well light_blue">
+                    <div class="well-header">
+                        <h5>@CONFIG.PRODUCT_DETAIL</h5>
+                        <ul>
+                            <li class="color_pick">
+                                <a href=""><i class="icon-th"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="well-content no-search">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Giá sản phẩm</th>
+                                    <th>Nhà cung cấp</th>
+                                    <th>Số lượng</th>
+                                    <th>Chỉnh sửa</th>
+                                    <th>Xóa</th>
+                                </tr>
+                            </thead>
+                            
+                            <tbody>
+                                @if (listProduct != null)
+                                {
+                                    int i = 1;
+                                    string manu = "";
+                                    foreach (var l in listProduct)
+                                    {
+                                        switch (l.manufacturer_id)
+                                        {
+                                            case "1":
+                                                manu = "SamSung";
+                                                break;
+                                            case "2":
+                                                manu = "Apple";
+                                                break;
+                                            case "3":
+                                                manu = "Apple";
+                                                break;
+                                            case "4":
+                                                manu = "Apple";
+                                                break;
+                                            case "5":
+                                                manu = "Apple";
+                                                break;
+                                        }
+                                        <tr>
+                                            <td>@(i++)</td>
+                                            <td>@l.name</td>
+                                            <td>@l.cost</td>
+                                            <td>@manu</td>
+                                            <td>@l.number</td>
+                                            <td><a class="btn" href="@Url.Action("EditProduct","Admin",new { content = content, idProduct = l.id})"><i class="icon-inbox"></i></a></td>
+                                            <td><a class="btn" href="@Url.Action("DeleteProduct","Admin",new { content = content, idProduct =  l.id})"><i class="icon-trash"></i></a></td>
+                                        </tr>
+                                    }
+
+                                }
+                            </tbody>
+                        </table>
+
+                        <div class="table_options bottom_options">
+                            <div class="pull-right">
+                                <span class="inline">
+                                    <span class="from_to"></span> <span class="sumTB"></span> <span>Trang &nbsp;</span>
+                                    <span>1</span>
+                                </span>
+                                <div class="btn-group">
+
+                                    <a class="btn" id="preIA"><i class="icon-angle-left"></i></a>
+                                    <a class="btn" id="nextIA"><i class="icon-angle-right"></i></a>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
